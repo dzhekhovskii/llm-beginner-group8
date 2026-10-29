@@ -17,10 +17,11 @@ an evaluation report, prompt-injection guardrails and a cost per 1,000 calls.
 
 | Name | GitHub | Role |
 |---|---|---|
-| | | |
-| | | |
-| | | |
-| | | |
+|Nicolas Dollet| | |
+|Naye Kanoute|nayekanoute| |
+|Alzira Ferreira|Icetrucklr| |
+|Hadiqa Javaid|HadiqaJ94| |
+|Danila Zhekhovskii|dzhekhovskii| |
 
 ## How this repo grows
 
