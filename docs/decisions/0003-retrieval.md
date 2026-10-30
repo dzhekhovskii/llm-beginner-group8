@@ -1,7 +1,7 @@
 # 0003: Retrieve the 3 nearest passages of whole sentences, up to 500 tokens, with multilingual-e5-small
 
 - **Status:** accepted
-- **Date:** [YYYY-MM-DD]
+- **Date:** 2026-10-30
 - **Author:** Alzira Ferreira
 - **Lesson:** L03
 
@@ -37,14 +37,15 @@ languages, cost, no silent truncation.
 tokenizer (`max_seq_length` = 512, and `HelpCentre` refuses to build an index with a longer passage), exact
 search (`faiss.IndexFlatIP` on normalised vectors = cosine), k = 3.
 
-On our 30 cases ([date]): the index holds [x] passages, longest [x] tokens; the evidence was in the top 3 for
-**[x]/28** answerable cases. Misses: [Cxx: what was retrieved instead, and why, e.g. a seller question that
-retrieved returns passages].
+Measured on 30 October 2026 with `python -m src.retrieve` (intfloat/multilingual-e5-small, k = 3, release policy-corpus-v1.0.0): the index holds 37 passages; the longest is 494 tokens and the median 482, under the model's 512-token limit, so nothing is cut off. On our 30 cases: the evidence was in the top 3 for [x]/28 answerable cases (`evidence_retrieved` in runs/results_*.csv). Misses: [Cxx: what was retrieved instead, and why].
+
+A narrow case worth keeping: for "Do I get my commission back as a seller?", the answer sits in 04-seller-policy#0, which came third (0.836), behind two returns passages (0.846 and 0.839). With k = 2 it would have been missed. The three scores are within 0.01: e5-small scores cluster between 0.7 and 1.0, so a gap that small barely separates the passages, and the order among them is close to arbitrary.
 
 ## Consequences
 
 - The answer is only as good as the 3 passages: a miss is a wrong answer however good the prompt (see the
   failure modes in `docs/evaluation.md`).
+- Seller questions are the weak spot: they compete with the customer-returns passages, which use the same vocabulary. k = 3 saved the commission question, but by a margin of 0.01.
 - A document can go out of date: the release version is in the README; a new policy means a new release and a
   rebuilt index.
 - To try next: k = 5 for seller questions, or the whole help centre with prompt caching (lesson 4 measured it at
