@@ -1,0 +1,15 @@
+# Pinned to the versions the course's lesson 4 ran with (October 2026), plus matplotlib for the
+# Pareto figure and pytest for the tests. No tenacity: the SDK is our only retry layer (src/llm.py).
+# The extra index gives CPU-only PyTorch: without it, pip on Linux installs a CUDA build of several GB.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1
+sentence-transformers==6.1.0
+faiss-cpu==1.15.1
+pypdf==6.19.0
+anthropic==1.10.0
+python-dotenv==1.2.4
+pydantic==2.13.5
+sacrebleu==2.5.1
+rouge-score==0.1.2
+matplotlib==3.11.2
+pytest==9.2.0

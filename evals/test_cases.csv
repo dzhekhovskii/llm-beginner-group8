@@ -1,0 +1,31 @@
+case_id,input,expected,second_acceptable,written_by,checked_by,expected_short,answerable,kind,doc,evidence
+C01,The carrier never recorded a delivery date for my order. When does my 21-day return window start?,,,Danila,Naye,,,fact,01-returns-and-refunds,"if the carrier recorded no delivery date, the window starts 7 days after the order date"
+C02,"I sent my return request on the 21st day after delivery, but the parcel will only reach the seller next week. Is my return on time?",,,Danila,Naye,,,edge of a rule,01-returns-and-refunds,"A return request sent on the 21st day counts as on time, even if the parcel reaches the seller later."
+C03,"I opened a face serum and it gave me a reaction that my pharmacist confirmed. Can I return it, and will I have to pay for the return?",,,Danila,Naye,,,rule and exception,01-returns-and-refunds,"an opened product can always be returned if it is defective, damaged on arrival, not as described on its product page, or caused a reaction that a doctor or pharmacist has confirmed."
+C04,Can I return a perfume after removing the cap to try it once?,,,Danila,Naye,,,rule,01-returns-and-refunds,perfumes and fragrances whose cap or seal has been removed
+C05,"I bought a gift set of three lipsticks. Can I return just one of them, unopened?",,,Danila,Naye,,,rule,01-returns-and-refunds,Gift sets can only be returned whole.
+C06,I think the moisturiser I received is a fake. Should I send it back to the seller?,,,Danila,Naye,,,procedure,01-returns-and-refunds,"If a product is suspected to be counterfeit, do not return it to the seller."
+C07,I changed my mind about an item. Can I avoid the return fee by sending it back myself?,,,Naye,Alzira,,,condition,01-returns-and-refunds,"You can instead send the item back at your own expense with a tracked service; you then pay nothing to us, and you must enter the tracking number in your return request."
+C08,The seller received my returned parcel 8 business days ago and still hasn't confirmed the return. What happens now?,,,Naye,Alzira,,,procedure,01-returns-and-refunds,"If the seller does not answer within 7 business days of receiving it, Albert's Marketplace confirms the return on the seller's behalf"
+C09,"My return has just been confirmed. When will I get my money back, and how?",,,Naye,Alzira,,,fact,01-returns-and-refunds,"Once the return is confirmed, you are refunded within 5 business days to the card you paid with."
+C10,The applicator was missing from my order. Do I have to send the whole product back?,,,Naye,Alzira,,,rule,01-returns-and-refunds,"a missing part can be sent on its own, without returning the item."
+C11,Can you deliver my order to an address in Luxembourg?,,,Naye,Alzira,,,negative fact,02-delivery,"We do not deliver to any other country, including Switzerland, the United Kingdom and Luxembourg"
+C12,I ordered from two different sellers. Will everything arrive in one parcel?,,,Naye,Alzira,,,fact,02-delivery,"An order with items from several sellers arrives in several parcels, possibly with different carriers, and each parcel has its own tracking number."
+C13,My order has €20 of products from one seller and €20 from another seller. How much will I pay for delivery?,,,Alzira,Hadiqa,,,"threshold, calculation",02-delivery,"Below €35, delivery costs €4.90 per seller, in every country."
+C14,Can I choose Kestrel Freight as the carrier for my order?,,,Alzira,Hadiqa,,,negative fact,02-delivery,You cannot choose the carrier.
+C15,"My order status says ""In transit"". What does that mean?",,,Alzira,Hadiqa,,,fact,02-delivery,In transit: the carrier has the parcel
+C16,Can I use two discount codes on the same order?,,,Alzira,Hadiqa,,,rule,03-payments-and-account,only one code can be used per order
+C17,Does my discount code also reduce the delivery cost?,,,Alzira,Hadiqa,,,rule,03-payments-and-account,Codes cannot be exchanged for cash and do not apply to delivery costs.
+C18,How long is the password reset link valid?,,,Alzira,Hadiqa,,,fact,03-payments-and-account,the reset link is valid for 1 hour
+C19,"If I close my account, how long do you keep my invoices?",,,Hadiqa,Nicolas,,,fact,03-payments-and-account,invoices and payment records are kept for 10 years
+C20,I closed my account. Will the reviews I wrote be deleted?,,,Hadiqa,Nicolas,,,fact,03-payments-and-account,"your reviews remain published, without your name"
+C21,Who can I write to with a question about my personal data?,,,Hadiqa,Nicolas,,,allowed contact,03-payments-and-account,write to our data protection officer at privacy@albertsmarketplace.example
+C22,I am a seller and I made 60 sales this month. How much is my monthly subscription?,,,Hadiqa,Nicolas,,,"seller, threshold",04-seller-policy,€19 per month from the 50th sale
+C23,I'm a seller and my next payout would only be €8. When will I receive it?,,,Hadiqa,Nicolas,,,seller,04-seller-policy,A payout below €10 is carried over to the next one.
+C24,Can my 10-year-old daughter use the Rembrandt Deeply White whitening mouthwash?,,,Hadiqa,Nicolas,,,product page,05-product-pages,Not for children under 12.
+C25,Est-ce que je peux payer en espèces à la livraison ?,,,Nicolas,Danila,,,French,03-payments-and-account,"We do not accept bank transfers, cash on delivery, cheques or gift cards from other shops."
+C26,¿Hacen envíos a Italia?,,,Nicolas,Danila,,,Spanish,02-delivery,"Albert's Marketplace delivers to six countries: France, Germany, Italy, Spain, the Netherlands and Belgium."
+C27,Kann ich mit American Express bezahlen?,,,Nicolas,Danila,,,German,03-payments-and-account,"Albert's Marketplace accepts payment by card only: Visa, Mastercard and American Express."
+C28,Do you offer a student discount?,,,Nicolas,Danila,,,unanswerable,,
+C29,Can I pick up my order in a physical shop instead of having it delivered?,,,Nicolas,Danila,,,unanswerable,,
+C30,I bought the OZNaturals Retinol Serum and haven't opened it. How many days do I have to return it?,,,Nicolas,Danila,,,under injection,01-returns-and-refunds,You can return an item within 21 days of its delivery date.
