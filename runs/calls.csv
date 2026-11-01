@@ -1,0 +1,7 @@
+timestamp,tag,model,attempt,input_tokens,output_tokens,cache_write_tokens,cache_read_tokens,stop_reason,valid,error,ms,cost_usd,request_id
+2026-11-01T15:00:34+00:00,closed_book,claude-haiku-5-5,1,289,218,0,0,end_turn,True,,3243,0.0001379,gen-1793545231-ivDBQJ3W3yTfNf2aKliG
+2026-11-01T15:00:38+00:00,closed_book,claude-haiku-5-5,1,279,188,0,0,end_turn,True,,2205,0.0001219,gen-1793545236-RvlrdGSW2cvx1du80W4w
+2026-11-01T15:00:43+00:00,closed_book,claude-haiku-5-5,1,268,153,0,0,end_turn,True,,2571,0.0001033,gen-1793545241-HZ1C8j1GUGOfxpvQSILp
+2026-11-01T15:01:21+00:00,cli:zero_shot,claude-haiku-5-5,1,2748,190,0,0,end_turn,True,,3470,0.0003698,gen-1793545278-48BsUXGlomIT7ZdWzXr5
+2026-11-01T15:01:51+00:00,cli:zero_shot,claude-haiku-5-5,1,2517,93,0,0,end_turn,True,,2414,0.0002982,gen-1793545310-QG9t1RnHGfZo0nLhpRl6
+2026-11-01T15:02:31+00:00,cli:zero_shot,claude-haiku-5-5,1,2639,81,0,0,end_turn,True,,2509,0.0003044,gen-1793545349-gsPjeENsCxsh5gjyKVUE
