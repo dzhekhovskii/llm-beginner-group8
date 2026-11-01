@@ -7,9 +7,7 @@
 
 ## Context
 
-Our component needs facts no model has read: this company's return window, fees and rules. We checked it on
-three of our test cases run through `src/llm.py` with no passage at all: [Cxx, Cxx, Cxx: what the model
-answered, and what the help centre says]. It invented a policy, so the component needs retrieval.
+Our component needs facts no model has read: this company's return window, fees and rules. We checked it on 1 November 2026 with three of our test cases (C13, C14, C18) sent to claude-haiku-5-5 with no passage at all (`python -m src.assistant "<question>" --closed-book`). The model did not invent a policy, but it could not answer either: for all three it said it did not have the information and sent the customer to checkout or support. With retrieval, the same model answered C14 (the seller chooses the carrier) and C18 (1 hour) correctly, citing 02-delivery#0 and 03-payments-and-account#0. The facts are only in the help centre, so the component needs retrieval.
 
 The help centre: 6 PDFs, release `policy-corpus-v1.0.0`, every file checked against the release's SHA-256
 `CHECKSUMS` (`src/retrieve.py: fetch_corpus`). Customers write in French, German, Spanish, Italian, Dutch and
@@ -37,7 +35,7 @@ languages, cost, no silent truncation.
 tokenizer (`max_seq_length` = 512, and `HelpCentre` refuses to build an index with a longer passage), exact
 search (`faiss.IndexFlatIP` on normalised vectors = cosine), k = 3.
 
-Measured on 30 October 2026 with `python -m src.retrieve` (intfloat/multilingual-e5-small, k = 3, release policy-corpus-v1.0.0): the index holds 37 passages; the longest is 494 tokens and the median 482, under the model's 512-token limit, so nothing is cut off. On our 30 cases: the evidence was in the top 3 for [x]/28 answerable cases (`evidence_retrieved` in runs/results_*.csv). Misses: [Cxx: what was retrieved instead, and why].
+Measured on 30 October 2026 with `python -m src.retrieve` (intfloat/multilingual-e5-small, k = 3, release policy-corpus-v1.0.0): the index holds 37 passages; the longest is 494 tokens and the median 482, under the model's 512-token limit, so nothing is cut off. On our test cases (1 November 2026, same settings; for each case, is its `evidence` sentence in one of the 3 passages?): the evidence was in the top 3 for 25/28 answerable cases, at rank 1 for 19 of them. Misses: C13 (delivery cost for two sellers) retrieved two returns passages and a seller passage, and no delivery passage at all; C15 ("In transit") found the right document, 02-delivery, but the wrong chunk; C25 (the French question about cash on delivery) retrieved returns and seller passages instead of 03-payments-and-account. The seller questions C22 and C23, which the course expected retrieval to miss, came first and second.
 
 A narrow case worth keeping: for "Do I get my commission back as a seller?", the answer sits in 04-seller-policy#0, which came third (0.836), behind two returns passages (0.846 and 0.839). With k = 2 it would have been missed. The three scores are within 0.01: e5-small scores cluster between 0.7 and 1.0, so a gap that small barely separates the passages, and the order among them is close to arbitrary.
 
@@ -50,3 +48,5 @@ A narrow case worth keeping: for "Do I get my commission back as a seller?", the
   rebuilt index.
 - To try next: k = 5 for seller questions, or the whole help centre with prompt caching (lesson 4 measured it at
   about Haiku 4.5's price).
+- A retrieval miss does not have to become a wrong answer: on C13 the model got no delivery passage and said the help centre does not cover it, instead of guessing. The customer still gets no answer, so it counts as a failure.
+- Multilingual is good, not perfect: the French question C25 missed its evidence, so non-English questions are a failure mode to watch.
