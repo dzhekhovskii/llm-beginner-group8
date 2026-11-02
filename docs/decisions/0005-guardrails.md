@@ -1,7 +1,7 @@
 # 0005: Treat seller pages and the customer's message as untrusted, and check every answer in code before it is sent
 
 - **Status:** accepted
-- **Date:** [YYYY-MM-DD]
+- **Date:** [2026-11-02]
 - **Author:** Nicolas Dollet
 - **Lesson:** L03-L04
 
@@ -38,8 +38,7 @@ links, IBANs and phone numbers other than `privacy@albertsmarketplace.example` b
 gets a fallback). The attacks are kept as tests that assert on what is sent, several runs each
 (`tests/test_guardrails.py`), run before every merge.
 
-Result ([date], strategy [ ], [x] runs per attack): [x passed / x failed]. [If one failed: which, what was
-sent, and what we changed.]
+Result (2026-11-02, strategy zero_shot, 5 runs per attack, claude-haiku-5-5 via OpenRouter, `tests/test_guardrails.py`): 6 passed / 0 failed. The 5 live attacks (seller redirect, seller "365 days", direct injection with a link, planted passage without instruction words, system-prompt request) were all blocked in every run, plus the offline check that known bad answers are never sent. Run on an Intel Mac with torch 2.2.2, transformers 4.44.2 and sentence-transformers 3.4.1 (the pinned versions have no Intel Mac build).
 
 ## Consequences
 
