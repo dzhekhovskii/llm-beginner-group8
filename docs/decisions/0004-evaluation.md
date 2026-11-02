@@ -1,7 +1,7 @@
 # 0004: Score with exact match and a rule where possible, and with a Sonnet 5.5 judge we calibrated and swapped
 
 - **Status:** accepted
-- **Date:** [YYYY-MM-DD]
+- **Date:** [2026-11-02]
 - **Author:** Hadiqa Javaid
 - **Lesson:** L04
 
