@@ -14,8 +14,10 @@ injection defences hold. Every figure comes from a file in `runs/`, produced by 
 calculation (C13), 3 questions in French, Spanish and German, 2 questions the help centre does not answer, and one
 asked about the product whose page carries an injection (C30). Each answerable case holds the help centre's sentence
 that contains the answer (`evidence`), so retrieval is scored apart from the answer. Each of the five members wrote
-6 cases, and another member checked them: nobody checked their own. [TO DO: one case the group changed after a
-disagreement.]
+6 cases, and another member checked them: nobody checked their own. One case changed after a disagreement: Naye's
+first answer to C11 read "No, we do not deliver to Luxembourg, Switzerland, the United Kingdom, or any other country",
+which sounds as if we deliver nowhere. Alzira's review corrected it to "No, we do not deliver to Luxembourg: we only
+deliver to France, Germany, Italy, Spain, the Netherlands and Belgium."
 
 ## Results
 
@@ -57,19 +59,22 @@ BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward cop
 ## The judge
 
 - **Model:** `claude-sonnet-5-5`, while the component runs on `claude-haiku-5-5`: it never grades its own model's
-  work. A model from another vendor would be a stronger control; we did not use one, because [TO DO: the group's
-  reason].
+  work. A model from another vendor would be a stronger control; we did not use one, because our keys and
+  `src/llm.py` are set up for Claude models only, and the other vendor's judge our decision record cites from lesson 4,
+  qwen2.5:3b, changed its verdict with the order more often than Sonnet 5.5 (11 pairs of 25 against 5). The cost is
+  that judge and component share a vendor, so they may share blind spots.
 - **Cost:** the judge cost $0.758 for the whole evaluation: $0.575 to score the three runs (the figure under the
   results table) and $0.183 for the swap (`runs/calls.csv`). The component's own calls cost $0.037. At list prices the
   judge costs 20 times the component per token (`src/llm.py`, `PRICE`).
 - **Calibration:** ten answers scored by hand by the group, two per member (`evals/calibration.csv`). Agreement on
-  right/wrong: **10/10**; mean gap on "correct": 0.00 points (`runs/calibration_summary.md`). There were no
-  disagreements on right/wrong. On the other criteria, hand and judge scores differed by one point on three answers:
-  "complete" on C11 and C30, "clear" on C13. This is a limited check: nine of the ten answers were right, so only C13
-  tests whether the judge catches a wrong answer. C25 and C06 were also not scored blind, because Hadiqa had already
-  read the failure review; without them, agreement is 8/8. [TO DO: the other members confirm they scored before seeing
-  the judge's scores, and Nicolas rechecks C11: the note mentions a fee, but the question is about delivering to
-  Luxembourg.]
+  right/wrong: **10/10**; mean gap on "correct": 0.40 points (`runs/calibration_summary.md`). The gap comes from four
+  answers (C03, C08, C25, C30) that we scored 4 and the judge scored 5: the judge was the more generous each time, but
+  4 and 5 both count as right, so no verdict changed. On the other criteria the mean gaps were 0.80 points (complete),
+  0.40 (grounded) and 0.30 (clear). The largest were two points: C03 on complete (ours 2, the judge's 4) and grounded
+  (ours 3, the judge's 5), and C13 on complete (ours 3, the judge's 1). This is a limited check: nine of the ten answers
+  were right, so only C13 tests whether the judge catches a wrong answer. Alzira's two rows (C02, C20) are recorded as
+  scored blind. C25 and C06 were not, because Hadiqa had already read the failure review; without them, agreement is
+  8/8. We hold no record either way for the other six.
 - **The swap:** zero-shot against chain-of-thought, all 28 answerable cases judged in both orders
   (`runs/swap_zero_shot_vs_cot.csv`): 21 verdicts survived the swap (12 for chain-of-thought, 9 for zero-shot),
   **7 changed with the order** (position bias: C01, C11, C13, C21, C23, C25, C27) and were not counted. That is one
