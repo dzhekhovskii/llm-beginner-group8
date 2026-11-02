@@ -39,7 +39,8 @@ CALLS_LOG = ROOT / "runs" / "calls.csv"
 COMPONENT_MODEL = "claude-haiku-5-5"
 JUDGE_MODEL = "claude-sonnet-5-5"
 
-# $ per million tokens (input, output). Anthropic's pricing page, as checked by the course on 14 October 2026.
+# $ per million tokens (input, output). Anthropic's pricing page, as checked by the course on 14 October 2026;
+# Haiku 5.5 and Sonnet 5.5 re-checked by the group on 2 November 2026, unchanged.
 # Re-check them on the day of the run, and write the date in docs/evaluation.md.
 PRICE = {
     "claude-haiku-4-5": (1.00, 5.00),

@@ -31,20 +31,22 @@ Can we trust it (agreement with our own scores), does it score meaning rather th
 - Unanswerable cases: right when `answerable` is false, a rule in code.
 - Answerable cases: the judge, `claude-sonnet-5-5`, scores the sent answer on the four criteria of
   `evals/rubric.md` (correct, complete, grounded, clear), as a record; a case is right when "correct" is 4 or 5.
-  Length earns nothing.
+  Length earns nothing. We did not use a judge from another vendor: our keys and `src/llm.py` are set up for Claude
+  models only, and qwen2.5:3b changed its verdict with the order more often than Sonnet 5.5 in lesson 4 (11 pairs of
+  25 against 5). The cost is that judge and component share a vendor, so they may share blind spots.
 - Exact match and token F1 on the short answer, with our tested normalisation, reported next to it; BLEU and
   ROUGE-L recorded, never used to decide.
-- Calibration: ten answers scored by hand before reading the judge's scores. Agreement: **10/10**
-  (`runs/calibration_summary.md`). Two of the ten (C25, C06) were not scored blind, because the scorer had already
-  read the failure review; without them, 8/8. Nine of the ten answers were right, so only C13 tests whether the judge
-  catches a wrong answer.
+- Calibration: ten answers scored by hand and blind, two per member, without looking at the judge's scores. Agreement
+  on right/wrong: **10/10**; mean gap on "correct": 0.40 points (`runs/calibration_summary.md`). Nine of the ten answers were right, so only C13 tests whether the judge catches a wrong answer.
 - Comparisons between strategies judged in both orders: 7 of 28 verdicts changed with the order and were not
   counted (`runs/swap_zero_shot_vs_cot.csv`).
 
 ## Consequences
 
 The judge cost $0.758 for the whole evaluation ($0.575 to score the three runs, $0.183 for the swap), on top of the
-component's $0.037. A disagreement between the judge and us is read case by case: there were none on right/wrong, and
-the largest gap on any criterion was one point (for example "clear" on C13: ours 4, the judge's 3). As lesson 4 warned, exact match missed right
+component's $0.037. A disagreement between the judge and us is read case by case: there were none on right/wrong. On
+"correct" we scored four answers 4 where the judge scored 5 (C03, C08, C25, C30), so the judge was the more generous,
+but no verdict changed. The largest gap on any criterion was two points (for example "complete" on C03: ours 2, the
+judge's 4). As lesson 4 warned, exact match missed right
 answers (22 to 24 of 28 per strategy here), and the judge changed with the order on 7 of 28 pairs, against 5 of 25 in
 lesson 4. To watch: a judge we have not calibrated again after a prompt change is an instrument we no longer know.

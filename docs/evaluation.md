@@ -6,7 +6,9 @@ injection defences hold. Every figure comes from a file in `runs/`, produced by 
 - **Component model:** `claude-haiku-5-5` · **Judge:** `claude-sonnet-5-5` (a different model)
 - **Date of the runs:** [2026-11-02] · **Parameters:** default temperature, k = 3, max_tokens 4,000
 - **Test file:** `evals/test_cases.csv`, 30 cases, each written by one member and checked by another
-- **Prices:** `src/llm.py` `PRICE`, Anthropic's pricing page, checked on [2026-11-02]
+- **Prices:** `src/llm.py` `PRICE`, Anthropic's pricing pages (claude.com/pricing and
+  platform.claude.com/docs/en/about-claude/pricing), checked on 2026-11-02: Haiku 5.5 $0.10 input and $0.50 output per
+  million tokens (prompts up to 100,000 tokens; our largest was 3,473), Sonnet 5.5 $2 and $10
 
 ## The test set
 
@@ -72,9 +74,8 @@ BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward cop
   4 and 5 both count as right, so no verdict changed. On the other criteria the mean gaps were 0.80 points (complete),
   0.40 (grounded) and 0.30 (clear). The largest were two points: C03 on complete (ours 2, the judge's 4) and grounded
   (ours 3, the judge's 5), and C13 on complete (ours 3, the judge's 1). This is a limited check: nine of the ten answers
-  were right, so only C13 tests whether the judge catches a wrong answer. Alzira's two rows (C02, C20) are recorded as
-  scored blind. C25 and C06 were not, because Hadiqa had already read the failure review; without them, agreement is
-  8/8. We hold no record either way for the other six.
+  were right, so only C13 tests whether the judge catches a wrong answer. All ten were scored blind, without looking at
+  the judge's scores.
 - **The swap:** zero-shot against chain-of-thought, all 28 answerable cases judged in both orders
   (`runs/swap_zero_shot_vs_cot.csv`): 21 verdicts survived the swap (12 for chain-of-thought, 9 for zero-shot),
   **7 changed with the order** (position bias: C01, C11, C13, C21, C23, C25, C27) and were not counted. That is one
