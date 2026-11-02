@@ -46,7 +46,10 @@ Everything goes through one function, `src/llm.py: structured_call`, which logs 
 
 ## Consequences
 
-To be filled after the evaluation run (`runs/calls.csv`, 30 cases): [x] answers valid at the first attempt,
-[x] after one re-prompt, [x] after two, [x] given up; each re-prompt cost a whole call. Input tokens per call:
-[median], of which the schema adds about [x] (compare with a plain call). To watch: a rule the model keeps
-breaking costs three calls; the cap is what bounds it.
+From the evaluation run (`runs/calls.csv`, `claude-haiku-5-5`, 2 November 2026, 30 cases x 3 strategies, 90 answers):
+88 answers valid at the first attempt, 2 after one re-prompt, 0 after two, 0 given up; each re-prompt cost a whole
+call. Both re-prompts were on chain-of-thought (C14, C24), for a citation written in square brackets, which our
+validator caught and the model corrected. Input tokens per call: median 2,551 (zero-shot), 3,236 (few-shot) and 2,784
+(chain-of-thought), of which the schema adds about 478 (`Answer`) or 548 (`AnswerCoT`), measured against a plain call
+with the same prompt (`schema_overhead:*` in `runs/calls.csv`). To watch: a rule the model keeps breaking costs three
+calls; the cap is what bounds it.

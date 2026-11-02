@@ -36,17 +36,11 @@ Can we trust it (agreement with our own scores), does it score meaning rather th
   25 against 5). The cost is that judge and component share a vendor, so they may share blind spots.
 - Exact match and token F1 on the short answer, with our tested normalisation, reported next to it; BLEU and
   ROUGE-L recorded, never used to decide.
-- Calibration: ten answers scored by hand and blind, two per member, without looking at the judge's scores. Agreement
-  on right/wrong: **10/10**; mean gap on "correct": 0.40 points (`runs/calibration_summary.md`). Nine of the ten answers were right, so only C13 tests whether the judge catches a wrong answer.
-- Comparisons between strategies judged in both orders: 7 of 28 verdicts changed with the order and were not
-  counted (`runs/swap_zero_shot_vs_cot.csv`).
+- The judge is calibrated against ten answers scored by hand, and comparisons between strategies are judged in both
+  orders: a verdict that changes with the order is not counted. The results are in `docs/evaluation.md`.
 
 ## Consequences
 
-The judge cost $0.758 for the whole evaluation ($0.575 to score the three runs, $0.183 for the swap), on top of the
-component's $0.037. A disagreement between the judge and us is read case by case: there were none on right/wrong. On
-"correct" we scored four answers 4 where the judge scored 5 (C03, C08, C25, C30), so the judge was the more generous,
-but no verdict changed. The largest gap on any criterion was two points (for example "complete" on C03: ours 2, the
-judge's 4). As lesson 4 warned, exact match missed right
-answers (22 to 24 of 28 per strategy here), and the judge changed with the order on 7 of 28 pairs, against 5 of 25 in
-lesson 4. To watch: a judge we have not calibrated again after a prompt change is an instrument we no longer know.
+Each answerable test case costs a judge call on top of the component's own, and a disagreement between the judge and us is read
+case by case (both in `docs/evaluation.md`). To watch: a judge we have not calibrated again after a prompt change is
+an instrument we no longer know.

@@ -4,7 +4,7 @@ How often the component is right, at what cost and how fast, which strategy we w
 injection defences hold. Every figure comes from a file in `runs/`, produced by `src/evaluate.py`.
 
 - **Component model:** `claude-haiku-5-5` · **Judge:** `claude-sonnet-5-5` (a different model)
-- **Date of the runs:** [2026-11-02] · **Parameters:** default temperature, k = 3, max_tokens 4,000
+- **Date of the runs:** 2026-11-02 · **Parameters:** default temperature, k = 3, max_tokens 4,000
 - **Test file:** `evals/test_cases.csv`, 30 cases, each written by one member and checked by another
 - **Prices:** `src/llm.py` `PRICE`, Anthropic's pricing pages (claude.com/pricing and
   platform.claude.com/docs/en/about-claude/pricing), checked on 2026-11-02: Haiku 5.5 $0.10 input and $0.50 output per
@@ -50,7 +50,7 @@ ones. The judge scores each sent answer from 1 to 5 on the four criteria of `eva
 grounded, clear); a case is right when "correct" is 4 or 5, and length earns nothing. Exact match and token F1 on the
 short answer are reported next to it: of the 28 answerable cases exact match disagreed with the judge
 on 22 (zero-shot), 24 (few-shot) and 24 (chain-of-thought), always by marking wrong an answer the judge marked right,
-never the reverse. For example, on C19 it marked "10 years" wrong against "10 years (120 months)", and on C02 "Yes, on
+never the reverse (14 to 16 misses per variant in lesson 4). For example, on C19 it marked "10 years" wrong against "10 years (120 months)", and on C02 "Yes, on
 time" wrong against "Yes".
 Many of our reference short answers are a bare "Yes" or "No", while the model adds a clause, which explains most of
 these misses. Mean token F1, over the same 28 cases, is 0.48 for zero-shot, 0.42 for few-shot and 0.42 for
@@ -61,10 +61,8 @@ BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward cop
 ## The judge
 
 - **Model:** `claude-sonnet-5-5`, while the component runs on `claude-haiku-5-5`: it never grades its own model's
-  work. A model from another vendor would be a stronger control; we did not use one, because our keys and
-  `src/llm.py` are set up for Claude models only, and the other vendor's judge our decision record cites from lesson 4,
-  qwen2.5:3b, changed its verdict with the order more often than Sonnet 5.5 (11 pairs of 25 against 5). The cost is
-  that judge and component share a vendor, so they may share blind spots.
+  work. A model from another vendor would be a stronger control; we did not use one (the reason is in
+  `docs/decisions/0004-evaluation.md`).
 - **Cost:** the judge cost $0.758 for the whole evaluation: $0.575 to score the three runs (the figure under the
   results table) and $0.183 for the swap (`runs/calls.csv`). The component's own calls cost $0.037. At list prices the
   judge costs 20 times the component per token (`src/llm.py`, `PRICE`).
@@ -79,7 +77,7 @@ BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward cop
 - **The swap:** zero-shot against chain-of-thought, all 28 answerable cases judged in both orders
   (`runs/swap_zero_shot_vs_cot.csv`): 21 verdicts survived the swap (12 for chain-of-thought, 9 for zero-shot),
   **7 changed with the order** (position bias: C01, C11, C13, C21, C23, C25, C27) and were not counted. That is one
-  pair in four, and the 12-to-9 gap is smaller than the 7 the order decided, so we do not read it as a real preference.
+  pair in four (5 of 25 in lesson 4), and the 12-to-9 gap is smaller than the 7 the order decided, so we do not read it as a real preference.
 
 ## Failure modes
 
@@ -134,7 +132,6 @@ the output check.
 
 ## Recommendation
 
-[TO DO: the group confirms this draft.]
 We would deploy zero-shot on `claude-haiku-5-5`: 28/30 right, $0.35 per 1,000 calls, 2.1 s median and 3.1 s p90
 latency. It ties the other strategies on right answers at the lowest cost, and it is the strategy the injection tests
 ran on.

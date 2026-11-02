@@ -52,16 +52,20 @@ in `docs/evaluation.md`.
 
 | Strategy | Right, of 30 | Cost per 1,000 calls | Median latency | Prompt file |
 |---|---|---|---|---|
-| Zero-shot | [from the report] | [ ] | [ ] | `prompts/answer_zero_shot.md` |
-| Few-shot | [ ] | [ ] | [ ] | `prompts/answer_few_shot.md` |
-| Chain-of-thought | [ ] | [ ] | [ ] | `prompts/answer_cot.md` |
+| Zero-shot | 28 | $0.35 | 2.1 s | `prompts/answer_zero_shot.md` |
+| Few-shot | 28 | $0.42 | 2.0 s | `prompts/answer_few_shot.md` |
+| Chain-of-thought | 28 | $0.46 | 2.9 s | `prompts/answer_cot.md` |
 
-Model `claude-haiku-5-5`, run on [YYYY-MM-DD], default parameters (temperature not set), k = 3 passages,
+Model `claude-haiku-5-5`, run on 2026-11-02, default parameters (temperature not set), k = 3 passages,
 max_tokens 4,000, test file `evals/test_cases.csv` (30 cases). A case is right when the judge
 (`claude-sonnet-5-5`) scores it 4 or 5 on "correct" (`evals/rubric.md`); an unanswerable case is right when the
 component says it cannot answer.
 
 ## Deployment recommendation
 
-[Two sentences, from `docs/evaluation.md`: the strategy and the model we would deploy, the numbers it rests on,
-what it still gets wrong, and what would make us change our mind.]
+We would deploy zero-shot on `claude-haiku-5-5`: 28/30 right, $0.35 per 1,000 calls, 2.1 s median and 3.1 s p90
+latency, because it ties the other strategies on right answers at the lowest cost and is the strategy the injection
+tests ran on. It still misses delivery questions whose evidence sits in the long `02-delivery#0` passage (C13, C15),
+and we would change our mind if smaller passages or a larger k, re-measured on all three strategies, opened a gap of
+more than one or two cases, or if a larger calibration, with more wrong answers in it, showed the judge missing them.
+Details: `docs/evaluation.md`.

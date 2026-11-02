@@ -262,3 +262,6 @@ timestamp,tag,model,attempt,input_tokens,output_tokens,cache_write_tokens,cache_
 2026-11-02T11:34:54+00:00,swap:zero_shot-vs-cot:C27:ba,claude-sonnet-5-5,1,641,94,0,0,end_turn,True,,2068,0.002222,gen-1793619290-OW1rGJB4c9yeRNd0srCR
 2026-11-02T11:34:56+00:00,swap:zero_shot-vs-cot:C30:ab,claude-sonnet-5-5,1,666,171,0,0,end_turn,True,,2537,0.003042,gen-1793619292-fq1o4S1ZrzvcOxq5fxV4
 2026-11-02T11:34:59+00:00,swap:zero_shot-vs-cot:C30:ba,claude-sonnet-5-5,1,666,177,0,0,end_turn,True,,2247,0.003102,gen-1793619295-hOgJWTZmci6Yycsy3epm
+2026-11-02T17:57:49+00:00,schema_overhead:plain,claude-haiku-5-5,1,701,1,0,0,max_tokens,,,0,7.06e-05,gen-1793642267-vMlKBcbos5juZELKygHe
+2026-11-02T17:57:50+00:00,schema_overhead:Answer,claude-haiku-5-5,1,1179,1,0,0,max_tokens,,,0,0.0001184,gen-1793642268-w17VsW05dGlTRNRrynud
+2026-11-02T17:57:52+00:00,schema_overhead:AnswerCoT,claude-haiku-5-5,1,1249,1,0,0,max_tokens,,,0,0.0001254,gen-1793642270-r2ppT8VWv9O9KR4oBlK6
