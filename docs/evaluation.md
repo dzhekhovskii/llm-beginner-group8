@@ -42,10 +42,16 @@ in exact match (4/28 against 2/28) is two cases, and few-shot's place on the fro
 neither is evidence that one strategy is better.
 
 **Which scorer.** "Right" is decided by the judge for answerable cases and by a rule in code for unanswerable
-ones. Exact match on the short answer is reported next to it: of the 28 answerable cases it disagreed with the judge
+ones. The judge scores each sent answer from 1 to 5 on the four criteria of `evals/rubric.md` (correct, complete,
+grounded, clear); a case is right when "correct" is 4 or 5, and length earns nothing. Exact match and token F1 on the
+short answer are reported next to it: of the 28 answerable cases exact match disagreed with the judge
 on 22 (zero-shot), 24 (few-shot) and 24 (chain-of-thought), always by marking wrong an answer the judge marked right,
 never the reverse. For example, on C19 it marked "10 years" wrong against "10 years (120 months)", and on C02 "Yes, on
 time" wrong against "Yes".
+Many of our reference short answers are a bare "Yes" or "No", while the model adds a clause, which explains most of
+these misses. Mean token F1, over the same 28 cases, is 0.48 for zero-shot, 0.42 for few-shot and 0.42 for
+chain-of-thought (`f1` in `runs/results_*.csv`). It gives partial credit to the same reworded answers, so it decides
+nothing either: the gap between strategies reflects how they word the short answer, not how often they are right.
 BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward copying the reference's words.
 
 ## The judge
@@ -53,6 +59,9 @@ BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward cop
 - **Model:** `claude-sonnet-5-5`, while the component runs on `claude-haiku-5-5`: it never grades its own model's
   work. A model from another vendor would be a stronger control; we did not use one, because [TO DO: the group's
   reason].
+- **Cost:** the judge cost $0.758 for the whole evaluation: $0.575 to score the three runs (the figure under the
+  results table) and $0.183 for the swap (`runs/calls.csv`). The component's own calls cost $0.037. At list prices the
+  judge costs 20 times the component per token (`src/llm.py`, `PRICE`).
 - **Calibration:** [TO DO: not run yet, `evals/calibration.csv` is empty.] Ten answers scored by hand by the group,
   before reading the judge's scores (`evals/calibration.csv`). Agreement on right/wrong: **[x]/10**; mean gap on
   "correct": [x] points (`runs/calibration_summary.md`). [What the disagreements were about.]
