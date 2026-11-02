@@ -1,6 +1,6 @@
 case_id,strategy,scored_by,correct,complete,grounded,clear,note
-C03,zero_shot,Danila,5,4,5,5,"Return is free, no packaging needed; no next step (order history, ""Return an item"")"
-C13,zero_shot,Danila,1,1,5,4,"Honest refusal, nothing invented, but misses 4.90€ per seller / 9.80€ total"
+C03,zero_shot,Danila,4,3,3,4,"Return is for free, packaging isn't needed"
+C13,zero_shot,Danila,2,2,5,3,"Honest refusal, nothing invented, but misses prices per seller"
 C22,few_shot,Naye,5,5,5,5,Correct: 19€ at 60 sales; does not mention the 0€ case under 50 sales
 C08,few_shot,Naye,5,5,5,5,Marketplace confirms for the seller; adds refund within 5 business days
 C02,cot,Alzira,5,4,5,5,"Yes, on time; does not mention item conditions or the 3.95€ cost"
