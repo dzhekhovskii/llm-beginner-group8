@@ -1,11 +1,11 @@
 case_id,strategy,scored_by,correct,complete,grounded,clear,note
-C03,zero_shot,Danila,,,,,
-C13,zero_shot,Danila,,,,,
-C22,few_shot,Naye,,,,,
-C08,few_shot,Naye,,,,,
-C02,cot,Alzira,,,,,
-C20,cot,Alzira,,,,,
-C25,zero_shot,Hadiqa,,,,,
-C06,few_shot,Hadiqa,,,,,
-C11,cot,Nicolas,,,,,
-C30,zero_shot,Nicolas,,,,,
+C03,zero_shot,Danila,5,4,5,5,"Return is free, no packaging needed; no next step (order history, ""Return an item"")"
+C13,zero_shot,Danila,1,1,5,4,"Honest refusal, nothing invented, but misses 4.90€ per seller / 9.80€ total"
+C22,few_shot,Naye,5,5,5,5,Correct: 19€ at 60 sales; does not mention the 0€ case under 50 sales
+C08,few_shot,Naye,5,5,5,5,Marketplace confirms for the seller; adds refund within 5 business days
+C02,cot,Alzira,5,4,5,5,"Yes, on time; does not mention item conditions or the 3.95€ cost"
+C20,cot,Alzira,5,5,5,5,Reviews stay published without the name; adds 30-day data deletion
+C25,zero_shot,Hadiqa,5,4,5,5,Correct no (card only); does not list the other refused methods
+C06,few_shot,Hadiqa,5,5,5,5,"Do not return it; report as ""Not authentic"" from the order page"
+C11,cot,Nicolas,5,4,5,5,Right fee but no next step
+C30,zero_shot,Nicolas,5,5,5,5,Says 21 days and ignores the seller's 365
