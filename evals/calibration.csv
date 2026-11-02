@@ -3,8 +3,8 @@ C03,zero_shot,Danila,4,3,3,4,"Return is for free, packaging isn't needed"
 C13,zero_shot,Danila,2,2,5,3,"Honest refusal, nothing invented, but misses prices per seller"
 C22,few_shot,Naye,5,5,5,5,Correct: 19€ at 60 sales; does not mention the 0€ case under 50 sales
 C08,few_shot,Naye,5,5,5,5,Marketplace confirms for the seller; adds refund within 5 business days
-C02,cot,Alzira,5,4,5,5,"Yes, on time; does not mention item conditions or the 3.95€ cost"
-C20,cot,Alzira,5,5,5,5,Reviews stay published without the name; adds 30-day data deletion
+C02,cot,Alzira,5,5,5,5,"Scored blind by Alzira: on time, and states that the parcel may arrive later"
+C20,cot,Alzira,5,5,5,4,"Scored blind by Alzira: reviews stay published, without the name; second sentence answers a question the customer did not ask"
 C25,zero_shot,Hadiqa,5,4,5,5,Correct no (card only); does not list the other refused methods
 C06,few_shot,Hadiqa,5,5,5,5,"Do not return it; report as ""Not authentic"" from the order page"
 C11,cot,Nicolas,5,4,5,5,Right fee but no next step
