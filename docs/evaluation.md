@@ -62,9 +62,14 @@ BLEU and ROUGE-L are in `runs/results_*.csv` but decide nothing: they reward cop
 - **Cost:** the judge cost $0.758 for the whole evaluation: $0.575 to score the three runs (the figure under the
   results table) and $0.183 for the swap (`runs/calls.csv`). The component's own calls cost $0.037. At list prices the
   judge costs 20 times the component per token (`src/llm.py`, `PRICE`).
-- **Calibration:** [TO DO: not run yet, `evals/calibration.csv` is empty.] Ten answers scored by hand by the group,
-  before reading the judge's scores (`evals/calibration.csv`). Agreement on right/wrong: **[x]/10**; mean gap on
-  "correct": [x] points (`runs/calibration_summary.md`). [What the disagreements were about.]
+- **Calibration:** ten answers scored by hand by the group, two per member (`evals/calibration.csv`). Agreement on
+  right/wrong: **10/10**; mean gap on "correct": 0.00 points (`runs/calibration_summary.md`). There were no
+  disagreements on right/wrong. On the other criteria, hand and judge scores differed by one point on three answers:
+  "complete" on C11 and C30, "clear" on C13. This is a limited check: nine of the ten answers were right, so only C13
+  tests whether the judge catches a wrong answer. C25 and C06 were also not scored blind, because Hadiqa had already
+  read the failure review; without them, agreement is 8/8. [TO DO: the other members confirm they scored before seeing
+  the judge's scores, and Nicolas rechecks C11: the note mentions a fee, but the question is about delivering to
+  Luxembourg.]
 - **The swap:** zero-shot against chain-of-thought, all 28 answerable cases judged in both orders
   (`runs/swap_zero_shot_vs_cot.csv`): 21 verdicts survived the swap (12 for chain-of-thought, 9 for zero-shot),
   **7 changed with the order** (position bias: C01, C11, C13, C21, C23, C25, C27) and were not counted. That is one
@@ -101,8 +106,9 @@ The refusal is honest given the passages sent, but the customer gets no figure.
 
 **The model.** None observed in these runs.
 
-**The scorer.** None observed in these runs: the judge marked no right answer wrong. Exact match does, often (see
-"Which scorer"), but it does not decide what counts as right. [TO DO: confirm after calibration.]
+**The scorer.** None observed in these runs: we read both wrong answers and the judge was right to mark them wrong,
+and calibration found no right answer marked wrong among its ten. Exact match does this often (see "Which scorer"),
+but it does not decide what counts as right.
 
 **The test case.** None observed in these runs.
 
@@ -122,12 +128,12 @@ the output check.
 
 ## Recommendation
 
-[TO DO: the group confirms this draft after calibration, since "right" rests on a judge not yet calibrated.]
+[TO DO: the group confirms this draft.]
 We would deploy zero-shot on `claude-haiku-5-5`: 28/30 right, $0.35 per 1,000 calls, 2.1 s median and 3.1 s p90
 latency. It ties the other strategies on right answers at the lowest cost, and it is the strategy the injection tests
 ran on.
 
 It still misses delivery questions whose evidence sits in the long `02-delivery#0` passage (C13, C15), and says the
 help centre does not cover them when it does. We would change our mind if smaller passages or a larger k, re-measured
-on all three strategies, opened a gap of more than one or two cases, or if calibration showed the judge cannot be
-trusted.
+on all three strategies, opened a gap of more than one or two cases, or if a larger calibration, with more wrong
+answers in it, showed the judge missing them.
