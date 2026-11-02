@@ -7,5 +7,5 @@ C02,cot,Alzira,,,,,
 C20,cot,Alzira,,,,,
 C25,zero_shot,Hadiqa,,,,,
 C06,few_shot,Hadiqa,,,,,
-C11,cot,Nicolas,,,,,
-C30,zero_shot,Nicolas,,,,,
+C11,cot,Nicolas,5,4,5,5,Right fee but no next step
+C30,zero_shot,Nicolas,5,5,5,5,Says 21 days and ignores the seller's 365
