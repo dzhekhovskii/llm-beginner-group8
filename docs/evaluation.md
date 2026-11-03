@@ -132,11 +132,8 @@ the output check.
 
 ## Recommendation
 
-## Recommendation
-
 We recommend deploying the zero-shot strategy with `claude-haiku-5-5`: it achieves 28/30 right answers at $0.35 per 1,000 calls, with a median latency of 2.1 s and a p90 latency of 3.1 s. It matches the other strategies on accuracy at the lowest cost and is the strategy tested against prompt injection attacks.
 
 The remaining errors (C13 and C15) are caused by retrieval: the relevant evidence is located in the long `02-delivery#0` passage, ranked 5th or 6th and therefore excluded from the top three passages. We would reconsider this recommendation if smaller passages or a larger retrieval `k`, evaluated across all three strategies, produced an accuracy difference of more than one or two cases, or if a larger judge calibration containing more incorrect answers revealed systematic evaluation errors.
-We would reconsider the deployment choice if further experiments showed a meaningful accuracy advantage for another strategy, if retrieval improvements substantially changed the results, or if human calibration revealed systematic judge errors.
 
 **In short, zero-shot is the best current trade-off between answer quality, cost and latency. Our next priority is not changing the prompting strategy, but improving retrieval and strengthening the reliability of the evaluation before scaling deployment.**
