@@ -14,11 +14,12 @@ For whom: Albert's Marketplace's customers, who ask policy questions (returns, d
 
 | Name | GitHub | Role |
 |---|---|---|
-|Nicolas Dollet|ndollet-sudo|Guardrails and injection tests (decision 0005)|
+|Danila Zhekhovskii|dzhekhovskii|Component, prompts and recommendation (decision 0001)|
 |Naye Kanoute|nayekanoute|API call, structured output and retries, `src/llm.py` (decision 0002)|
 |Alzira Ferreira|Icetrucklr|Retrieval, `src/retrieve.py` (decision 0003)|
 |Hadiqa Javaid|HadiqaJ94|Evaluation, judge and calibration (decision 0004)|
-|Danila Zhekhovskii|dzhekhovskii|Component, prompts and recommendation (decision 0001)|
+|Nicolas Dollet|ndollet-sudo|Guardrails and injection tests (decision 0005)|
+
 
 ## Install
 
