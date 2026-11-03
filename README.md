@@ -4,6 +4,8 @@ This repository is your group's LLM component for **Albert's Marketplace**, the
 fictional European beauty marketplace of the LLM Fundamentals, Prompting & API
 Integration course (MSA-DATI07-08, Albert School).
 
+> **Our component:** a retrieval layer (RAG). The help centre's assistant for Albert's Marketplace's customers answers their policy questions only from the company's help centre, with its sources, or says the help centre does not cover it. Jump to [What the component does](#what-the-component-does), [Install](#install), [Run the evaluation](#run-the-evaluation) and [Run the tests](#run-the-tests). Results: `docs/evaluation.md`. Defence slides: `docs/defence/`.
+
 It starts almost empty. Every lesson adds a layer on top of the previous one. By
 the end of the course it holds the component your group defends orally: one of
 - a prompt-driven **classifier** (support tickets)
@@ -17,11 +19,11 @@ an evaluation report, prompt-injection guardrails and a cost per 1,000 calls.
 
 | Name | GitHub | Role |
 |---|---|---|
-|Nicolas Dollet|ndollet-sudo|1|
-|Naye Kanoute|nayekanoute|2|
-|Alzira Ferreira|Icetrucklr|3|
-|Hadiqa Javaid|HadiqaJ94|4|
-|Danila Zhekhovskii|dzhekhovskii|5|
+|Nicolas Dollet|ndollet-sudo|Guardrails and injection tests (decision 0005)|
+|Naye Kanoute|nayekanoute|API call, structured output and retries, `src/llm.py` (decision 0002)|
+|Alzira Ferreira|Icetrucklr|Retrieval, `src/retrieve.py` (decision 0003)|
+|Hadiqa Javaid|HadiqaJ94|Evaluation, judge and calibration (decision 0004)|
+|Danila Zhekhovskii|dzhekhovskii|Component, prompts and recommendation (decision 0001)|
 
 ## How this repo grows
 
@@ -70,18 +72,17 @@ screenshot or in a chat message.
 
 ```
 docs/
-  component.md     the task, the users, the deployment recommendation
-  decisions/       one record per decision
-prompts/           every prompt, versioned, from L01
-evals/             test cases, golden set and results, from L01
-src/               the code that calls the model, from L02
+  component.md      the task, the users, the deployment recommendation
+  evaluation.md     the evaluation report: table, Pareto front, judge, failures, injection tests
+  pareto.png        the Pareto front
+  decisions/        one record per decision (0001 to 0005)
+  defence/          the defence slides (PDF)
+prompts/            every prompt, versioned: the three strategies and the judge
+evals/              test cases, rubric, calibration
+src/                the code: retrieval, the API call, guardrails, the assistant, the evaluation
+tests/              offline tests and the live injection tests
+runs/               every result file and the log of every API call (calls.csv)
 ```
-
-## Data
-
-Albert's Marketplace's data, and its 120 labelled support tickets, are in the
-company repo (link on the course site). They are synthetic or derived from
-public datasets; their licence and attribution are stated there.
 
 ## Ownership
 
@@ -111,6 +112,8 @@ cp .env.example .env        # then uncomment your key's lines in .env (see "Your
 The first run downloads the help centre (release `policy-corpus-v1.0.0`, every file checked against its
 SHA-256) into `data/policy-corpus/` and the embedding model `intfloat/multilingual-e5-small` (about 470 MB).
 Both are ignored by Git.
+
+On an Intel Mac, the pinned torch version has no build: the injection tests were run there with torch 2.2.2, transformers 4.44.2 and sentence-transformers 3.4.1 (see `docs/decisions/0005-guardrails.md`).
 
 ## Run it on one question
 
