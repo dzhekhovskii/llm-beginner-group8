@@ -46,7 +46,7 @@ models. It is personal.
    two for an OpenRouter key. The code is the same for both.
 2. `.env` is listed in `.gitignore`, so Git never sees it; check with `git status` before every commit.
 3. Use your own key, never a teammate's.
-4. **If a key reaches GitHub, even for a minute, tell the teaching team (the school coordinator) at once** so it
+4. **If a key reaches GitHub, even for a minute, tell the teaching team at once** so it
    can be revoked. Deleting the commit does not help: the key has already been copied.
 
 ## Run it on one question
