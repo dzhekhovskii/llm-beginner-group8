@@ -8,6 +8,10 @@ data/
 cache/
 *.faiss
 *.index
+.gitattributes
+.editorconfig
+.gitkeep
+.github/
 
 # Python
 __pycache__/
@@ -15,6 +19,7 @@ __pycache__/
 .venv/
 venv/
 .ipynb_checkpoints/
+__init__.py
 
 # Editors and OS
 .idea/
