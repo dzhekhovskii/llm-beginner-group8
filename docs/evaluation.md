@@ -132,16 +132,8 @@ the output check.
 
 ## Recommendation
 
-We recommend deploying the **zero-shot strategy with claude-haiku-5-5** as the current baseline. It achieves the same accuracy as the other strategies (28/30) while offering the lowest cost ($0.35 per 1,000 calls), competitive latency (2.1 s median, 3.1 s p90), and no need for additional re-prompts. Few-shot is marginally faster, but the 0.1-second difference does not justify its higher cost. Chain-of-thought offers no measurable accuracy improvement and is both more expensive and slower.
+We recommend deploying the zero-shot strategy with `claude-haiku-5-5`: it achieves 28/30 right answers at $0.35 per 1,000 calls, with a median latency of 2.1 s and a p90 latency of 3.1 s. It matches the other strategies on accuracy at the lowest cost and is the strategy tested against prompt injection attacks.
 
-However, this recommendation is **conditional rather than a claim of production readiness**. The evaluation is based on only 30 test cases, and the judge has not yet been calibrated against independent human assessments. The results therefore support choosing zero-shot as the most cost-efficient strategy, but do not establish that it is significantly more accurate or that its performance will generalise to real customer queries.
-
-Before full deployment, we would prioritise three improvements:
-
-1. **Improve retrieval.** Both incorrect answers (C13 and C15) result from the same delivery passage ranking below the top three retrieved passages. We would test smaller, more focused chunks and a higher retrieval k, then rerun the evaluation to determine whether delivery-related questions improve without increasing cost excessively.
-2. **Validate the evaluation process.** Complete the human calibration of the judge, investigate the seven order-dependent verdicts in the swap experiment, and expand the test set with additional edge cases, multilingual questions and adversarial examples.
-3. **Continue security testing.** The five injection scenarios passed all five runs, which is encouraging, but this is not sufficient to establish robustness against prompt injection in general. We would extend testing to more varied and previously unseen attacks.
-
-We would reconsider the deployment choice if further experiments showed a meaningful accuracy advantage for another strategy, if retrieval improvements substantially changed the results, or if human calibration revealed systematic judge errors.
+The remaining errors (C13 and C15) are caused by retrieval: the relevant evidence is located in the long `02-delivery#0` passage, ranked 5th or 6th and therefore excluded from the top three passages. We would reconsider this recommendation if smaller passages or a larger retrieval `k`, evaluated across all three strategies, produced an accuracy difference of more than one or two cases, or if a larger judge calibration containing more incorrect answers revealed systematic evaluation errors.
 
 **In short, zero-shot is the best current trade-off between answer quality, cost and latency. Our next priority is not changing the prompting strategy, but improving retrieval and strengthening the reliability of the evaluation before scaling deployment.**
